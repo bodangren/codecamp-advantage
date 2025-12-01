@@ -4,7 +4,7 @@
 **Codecamp Advantage** is an AI-powered coding education platform being rebuilt with **Next.js**, **Vercel AI SDK**, and **Clerk** for authentication and billing.
 
 ### Technical Architecture
--   **Framework:** Next.js 15 (App Router, Turbo)
+-   **Framework:** Next.js 16 (App Router, Turbo)
 -   **Language:** TypeScript
 -   **AI:** Vercel AI SDK 5.0 (Chatbot functionality)
 -   **Auth & Billing:** Clerk (Replacing NextAuth)

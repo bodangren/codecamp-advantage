@@ -11,7 +11,7 @@ updated: 2025-11-30
 # Spec Delta: Core Infrastructure & Authentication
 
 ## Overview
-This specification defines the implementation requirements for the foundational infrastructure of the Codecamp Advantage platform. It covers the setup of the Next.js 15 application, the integration of Clerk for authentication, and the establishment of the Postgres database using Drizzle ORM.
+This specification defines the implementation requirements for the foundational infrastructure of the Codecamp Advantage platform. It covers the setup of the Next.js 16 application, the integration of Clerk for authentication, and the establishment of the Postgres database using Drizzle ORM.
 
 ## Requirements
 

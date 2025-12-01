@@ -9,7 +9,7 @@ updated: 2025-11-29
 # Product Requirements Document: Codecamp Advantage
 
 ## Objectives
-1.  **Launch a "Reference Implementation" Platform**: Build a learning platform that itself demonstrates the best practices of the Next.js 15 + AI SDK stack.
+1.  **Launch a "Reference Implementation" Platform**: Build a learning platform that itself demonstrates the best practices of the Next.js 16 + AI SDK stack.
 2.  **Deliver "AI-Native" Education**: Create a curriculum delivery system where an AI tutor is deeply integrated into every lesson, reducing user blockage time by 80% compared to static forums.
 3.  **Achieve Technical Scalability**: Design a system architecture (Clerk Auth + Drizzle/Postgres + Vercel Edge) that supports 10,000 concurrent users with <500ms API latency.
 
@@ -69,7 +69,7 @@ updated: 2025-11-29
 ## Constraints
 -   **Budget**: Must run on Vercel Hobby tier (initially) and Neon Free Tier for DB.
 -   **Timeline**: MVP launch within 4 weeks.
--   **Tech Stack**: Strict adherence to Next.js 15 (App Router), Tailwind v4, Drizzle, Clerk.
+-   **Tech Stack**: Strict adherence to Next.js 16 (App Router), Tailwind v4, Drizzle, Clerk.
 
 ## Assumptions
 -   Users will have a GitHub account (or be willing to create one).

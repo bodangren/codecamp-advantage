@@ -11,11 +11,11 @@ updated: 2025-11-30
 # Proposal: Core Infrastructure & Authentication
 
 ## Problem Statement
-The platform currently lacks a unified foundation for user identity and data persistence. Users cannot sign up, log in, or save their progress. Additionally, the application infrastructure needs to be standardized on the modern "Next.js 15 + AI" stack to support future features. This epic addresses the critical need for a secure, scalable backbone.
+The platform currently lacks a unified foundation for user identity and data persistence. Users cannot sign up, log in, or save their progress. Additionally, the application infrastructure needs to be standardized on the modern "Next.js 16 + AI" stack to support future features. This epic addresses the critical need for a secure, scalable backbone.
 
 ## Proposed Solution
 We will implement the core infrastructure using:
-1.  **Next.js 15 (App Router)**: As the full-stack framework.
+1.  **Next.js 16 (App Router)**: As the full-stack framework.
 2.  **Clerk**: For robust, secure authentication (replacing the template's NextAuth).
 3.  **Drizzle ORM + Postgres (Neon)**: For type-safe database interactions and data persistence.
 4.  **Base UI Layout**: A responsive shell (Navbar, Sidebar) using Tailwind v4.
@@ -40,7 +40,7 @@ We will implement the core infrastructure using:
 
 ## Scope
 **In Scope**:
--   Next.js 15 project configuration.
+-   Next.js 16 project configuration.
 -   Clerk integration (Sign Up, Sign In, User Profile).
 -   Postgres Database provisioning (Neon) and Drizzle setup.
 -   Webhook handler to sync Clerk users to Postgres.

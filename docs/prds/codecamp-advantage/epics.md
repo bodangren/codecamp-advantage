@@ -21,7 +21,7 @@ Establish the foundational architecture, database schema, and user authenticatio
 
 ### Scope
 **Core Features**:
-- Next.js 15 + Tailwind v4 project scaffold.
+- Next.js 16 + Tailwind v4 project scaffold.
 - Clerk Authentication integration (Sign Up, Login, Social Providers).
 - Drizzle ORM setup with Postgres (Neon).
 - User database synchronization (Clerk Webhooks -> Postgres).

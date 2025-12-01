@@ -28,12 +28,12 @@ Aspiring developers and career switchers face a significant "gap of despair" bet
 
 ### Secondary Persona: The Modern Upskiller
 -   **Profile**: Junior Developer or CS student familiar with basics but new to the "Modern Web Stack."
--   **Needs**: Rapid proficiency in Next.js 15, Vercel AI SDK, and TypeScript.
+-   **Needs**: Rapid proficiency in Next.js 16, Vercel AI SDK, and TypeScript.
 -   **Pain Points**: Fragmentation of documentation for new technologies and lack of cohesive "real-world" architectural examples.
 
 ## Proposed Solution
 **Codecamp Advantage** is an AI-native educational platform that immerses users in the modern web stack immediately.
--   **Architecture**: Built on Next.js 15, Vercel AI SDK, and Clerk, serving as both the delivery mechanism and the subject matter.
+-   **Architecture**: Built on Next.js 16, Vercel AI SDK, and Clerk, serving as both the delivery mechanism and the subject matter.
 -   **Core Features**:
     -   **AI Pair Programmer**: A context-aware chatbot (Vercel AI SDK) that provides real-time explanation, debugging, and code reviews tailored to the specific lesson.
     -   **Curriculum**: A project-based track where users build and deploy their own AI-powered applications.
