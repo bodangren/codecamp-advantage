@@ -170,3 +170,36 @@ test.describe("Chat activity", () => {
     await expect(chatPage.scrollToBottomButton).not.toBeVisible();
   });
 });
+
+test.describe("Base UI shell", () => {
+  test("opens and closes the sidebar drawer on mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    await page.getByTestId("sidebar-toggle-button").click();
+    const mobileSidebar = page.locator(
+      '[data-mobile="true"][data-sidebar="sidebar"]'
+    );
+    await expect(mobileSidebar).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(mobileSidebar).toBeHidden();
+  });
+
+  test("persists theme toggle selection after reload", async ({ page }) => {
+    await page.goto("/");
+    const themeToggle = page.getByTestId("theme-toggle");
+
+    const initialTheme = await themeToggle.getAttribute("data-theme");
+    await themeToggle.click();
+    const updatedTheme = await themeToggle.getAttribute("data-theme");
+
+    expect(updatedTheme).not.toBe(initialTheme);
+
+    await page.reload();
+    await expect(page.getByTestId("theme-toggle")).toHaveAttribute(
+      "data-theme",
+      updatedTheme ?? ""
+    );
+  });
+});

@@ -1,7 +1,10 @@
 import { cookies } from "next/headers";
 import Script from "next/script";
+import { UserButton } from "@clerk/nextjs";
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataStreamProvider } from "@/components/data-stream-provider";
+import { SidebarToggle } from "@/components/sidebar-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export const experimental_ppr = true;
@@ -23,7 +26,16 @@ export default async function Layout({
       <DataStreamProvider>
         <SidebarProvider defaultOpen={!isCollapsed}>
           <AppSidebar />
-          <SidebarInset>{children}</SidebarInset>
+          <SidebarInset>
+            <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b bg-background px-4">
+              <SidebarToggle />
+              <div className="ml-auto flex items-center gap-2">
+                <ThemeToggle />
+                <UserButton afterSignOutUrl="/sign-in" />
+              </div>
+            </header>
+            <div className="flex flex-1 flex-col">{children}</div>
+          </SidebarInset>
         </SidebarProvider>
       </DataStreamProvider>
     </>
