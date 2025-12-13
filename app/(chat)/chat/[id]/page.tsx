@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-
 import { auth } from "@/app/(auth)/auth";
+
 import { Chat } from "@/components/chat";
 import { DataStreamHandler } from "@/components/data-stream-handler";
 import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
@@ -18,17 +18,17 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   }
 
   const session = await auth();
+  const userId = session?.user.id;
 
-  if (!session) {
-    redirect("/api/auth/guest");
-  }
+  // Clerk's authMiddleware will handle redirects for unauthenticated users trying to access protected routes.
+  // We don't need to explicitly redirect to /api/auth/guest anymore.
 
   if (chat.visibility === "private") {
-    if (!session.user) {
+    if (!userId) {
       return notFound();
     }
 
-    if (session.user.id !== chat.userId) {
+    if (userId !== chat.userId) {
       return notFound();
     }
   }
@@ -52,7 +52,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           initialLastContext={chat.lastContext ?? undefined}
           initialMessages={uiMessages}
           initialVisibilityType={chat.visibility}
-          isReadonly={session?.user?.id !== chat.userId}
+          isReadonly={userId !== chat.userId}
         />
         <DataStreamHandler />
       </>
@@ -68,7 +68,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         initialLastContext={chat.lastContext ?? undefined}
         initialMessages={uiMessages}
         initialVisibilityType={chat.visibility}
-        isReadonly={session?.user?.id !== chat.userId}
+        isReadonly={userId !== chat.userId}
       />
       <DataStreamHandler />
     </>

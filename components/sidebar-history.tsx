@@ -7,10 +7,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import useSWRInfinite from "swr/infinite";
 
-// Placeholder for User type
-type User = {
-  email?: string | null;
-};
 import {
   AlertDialog,
   AlertDialogAction,
@@ -101,7 +97,7 @@ export function getChatHistoryPaginationKey(
   return `/api/history?ending_before=${firstChatFromPage.id}&limit=${PAGE_SIZE}`;
 }
 
-export function SidebarHistory({ user }: { user: User | undefined }) {
+export function SidebarHistory({ isSignedIn }: { isSignedIn: boolean }) {
   const { setOpenMobile } = useSidebar();
   const { id } = useParams();
 
@@ -156,7 +152,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     }
   };
 
-  if (!user) {
+  if (!isSignedIn) {
     return (
       <SidebarGroup>
         <SidebarGroupContent>

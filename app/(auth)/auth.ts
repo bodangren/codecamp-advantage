@@ -1,15 +1,27 @@
-export type UserType = "guest" | "regular";
+import { auth as clerkAuth } from "@clerk/nextjs/server";
 
-export async function auth() {
+export type UserType = "user" | "admin";
+
+type SessionUser = {
+  id: string;
+  type: UserType;
+};
+
+type Session = {
+  user: SessionUser;
+};
+
+export async function auth(): Promise<Session | null> {
+  const session = await clerkAuth();
+
+  if (!session.userId) {
+    return null;
+  }
+
   return {
     user: {
-      id: "placeholder-id",
-      email: "placeholder@example.com",
-      type: "regular" as UserType,
+      id: session.userId,
+      type: "user",
     },
-  };
-}
-
-export async function signOut(options?: any) {
-  console.log("Sign out", options);
+  } satisfies Session;
 }

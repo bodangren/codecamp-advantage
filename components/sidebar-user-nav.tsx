@@ -1,8 +1,8 @@
 "use client";
 
+import { SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 import { ChevronUp } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -17,19 +17,18 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-// Placeholder type to replace next-auth User
-type User = {
-  email?: string | null;
-  image?: string | null;
-};
-
-export function SidebarUserNav({ user }: { user: User }) {
-  const router = useRouter();
+export function SidebarUserNav() {
   const { setTheme, resolvedTheme } = useTheme();
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  if (!isLoaded || !isSignedIn || !user) {
+    return null;
+  }
+  const primaryEmail = user.emailAddresses[0]?.emailAddress ?? "";
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
+      <SidebarMenuItem className="flex items-center justify-between gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
               <SidebarMenuButton
@@ -37,14 +36,14 @@ export function SidebarUserNav({ user }: { user: User }) {
                 data-testid="user-nav-button"
               >
                 <Image
-                  alt={user.email ?? "User Avatar"}
+                  alt={primaryEmail || "User Avatar"}
                   className="rounded-full"
                   height={24}
-                  src={`https://avatar.vercel.sh/${user.email}`}
+                  src={user.imageUrl ?? `https://avatar.vercel.sh/${primaryEmail}`}
                   width={24}
                 />
                 <span className="truncate" data-testid="user-email">
-                  {user?.email}
+                  {primaryEmail}
                 </span>
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
@@ -65,19 +64,15 @@ export function SidebarUserNav({ user }: { user: User }) {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild data-testid="user-nav-item-auth">
-              <button
-                className="w-full cursor-pointer"
-                onClick={() => {
-                    // Placeholder for sign out
-                    console.log("Sign out clicked");
-                }}
-                type="button"
-              >
-                Sign out
-              </button>
+              <SignOutButton redirectUrl="/sign-in">
+                <button className="w-full cursor-pointer" type="button">
+                  Sign out
+                </button>
+              </SignOutButton>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <UserButton afterSignOutUrl="/sign-in" />
       </SidebarMenuItem>
     </SidebarMenu>
   );

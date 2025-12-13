@@ -1,17 +1,16 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { auth } from "@/app/(auth)/auth";
 import { Chat } from "@/components/chat";
 import { DataStreamHandler } from "@/components/data-stream-handler";
 import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { generateUUID } from "@/lib/utils";
-import { auth } from "../(auth)/auth";
 
 export default async function Page() {
   const session = await auth();
+  const userId = session?.user.id;
 
-  if (!session) {
-    redirect("/api/auth/guest");
-  }
+  // Clerk's authMiddleware will handle redirects for unauthenticated users trying to access protected routes.
+  // We don't need to explicitly redirect to /api/auth/guest anymore.
 
   const id = generateUUID();
 
@@ -27,7 +26,7 @@ export default async function Page() {
           initialChatModel={DEFAULT_CHAT_MODEL}
           initialMessages={[]}
           initialVisibilityType="private"
-          isReadonly={false}
+          isReadonly={!userId}
           key={id}
         />
         <DataStreamHandler />
@@ -43,7 +42,7 @@ export default async function Page() {
         initialChatModel={modelIdFromCookie.value}
         initialMessages={[]}
         initialVisibilityType="private"
-        isReadonly={false}
+        isReadonly={!userId}
         key={id}
       />
       <DataStreamHandler />

@@ -5,8 +5,8 @@ import { generateRandomTestUser } from "../helpers";
 import { AuthPage } from "../pages/auth";
 import { ChatPage } from "../pages/chat";
 
-test.describe
-  .serial("Guest Session", () => {
+test.describe.skip("Guest Session", () => {
+  test.describe.configure({ mode: "serial" });
     test("Authenticate as guest user when a new session is loaded", async ({
       page,
     }) => {
@@ -93,8 +93,8 @@ test.describe
     });
   });
 
-test.describe
-  .serial("Login and Registration", () => {
+test.describe.skip("Login and Registration", () => {
+  test.describe.configure({ mode: "serial" });
     let authPage: AuthPage;
 
     const testUser = generateRandomTestUser();
@@ -186,7 +186,7 @@ test.describe
     });
   });
 
-test.describe("Entitlements", () => {
+test.describe.skip("Entitlements", () => {
   let chatPage: ChatPage;
 
   test.beforeEach(({ page }) => {

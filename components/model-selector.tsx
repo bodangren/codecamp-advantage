@@ -1,12 +1,11 @@
 "use client";
 
 import { startTransition, useMemo, useOptimistic, useState } from "react";
+import type { UserType } from "@/app/(auth)/auth";
 import { saveChatModelAsCookie } from "@/app/(chat)/actions";
-
-// Placeholder for Session
 type Session = {
   user: {
-    type: any; // was UserType
+    type: UserType;
   };
 };
 import { Button } from "@/components/ui/button";
