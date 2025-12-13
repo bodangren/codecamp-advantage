@@ -8,16 +8,29 @@ import {
   primaryKey,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 import type { AppUsage } from "../usage";
 
-export const user = pgTable("User", {
-  id: uuid("id").primaryKey().notNull().defaultRandom(),
-  email: varchar("email", { length: 64 }).notNull(),
-  password: varchar("password", { length: 64 }),
-});
+export const user = pgTable(
+  "users",
+  {
+    id: varchar("id", { length: 256 }).primaryKey().notNull(), // Clerk user id (user_xxx)
+    email: varchar("email", { length: 256 }).notNull(),
+    role: varchar("role", { length: 32 }).notNull().default("user"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({
+    emailIdx: uniqueIndex("users_email_idx").on(table.email),
+  })
+);
 
 export type User = InferSelectModel<typeof user>;
 
@@ -25,7 +38,7 @@ export const chat = pgTable("Chat", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   createdAt: timestamp("createdAt").notNull(),
   title: text("title").notNull(),
-  userId: uuid("userId")
+  userId: varchar("userId", { length: 256 })
     .notNull()
     .references(() => user.id),
   visibility: varchar("visibility", { enum: ["public", "private"] })
@@ -115,7 +128,7 @@ export const document = pgTable(
     kind: varchar("text", { enum: ["text", "code", "image", "sheet"] })
       .notNull()
       .default("text"),
-    userId: uuid("userId")
+    userId: varchar("userId", { length: 256 })
       .notNull()
       .references(() => user.id),
   },
@@ -138,7 +151,7 @@ export const suggestion = pgTable(
     suggestedText: text("suggestedText").notNull(),
     description: text("description"),
     isResolved: boolean("isResolved").notNull().default(false),
-    userId: uuid("userId")
+    userId: varchar("userId", { length: 256 })
       .notNull()
       .references(() => user.id),
     createdAt: timestamp("createdAt").notNull(),
