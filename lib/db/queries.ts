@@ -40,14 +40,44 @@ import {
 const client = postgres(process.env.DATABASE_URL!);
 const db = drizzle(client);
 
-export async function getUser(email: string): Promise<User[]> {
+export async function upsertClerkUser({
+  id,
+  email,
+  role = "user",
+}: {
+  id: string;
+  email: string;
+  role?: string;
+}) {
+  const timestamp = new Date();
+
   try {
-    return await db.select().from(user).where(eq(user.email, email));
+    return await db
+      .insert(user)
+      .values({
+        id,
+        email,
+        role,
+        updatedAt: timestamp,
+      })
+      .onConflictDoUpdate({
+        target: user.id,
+        set: {
+          email,
+          role,
+          updatedAt: timestamp,
+        },
+      });
   } catch (_error) {
-    throw new ChatSDKError(
-      "bad_request:database",
-      "Failed to get user by email"
-    );
+    throw new ChatSDKError("bad_request:database", "Failed to upsert user");
+  }
+}
+
+export async function deleteUserById({ id }: { id: string }) {
+  try {
+    return await db.delete(user).where(eq(user.id, id));
+  } catch (_error) {
+    throw new ChatSDKError("bad_request:database", "Failed to delete user");
   }
 }
 

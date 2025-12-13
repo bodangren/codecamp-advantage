@@ -15,7 +15,8 @@
     "db:pull": "drizzle-kit pull",
     "db:check": "drizzle-kit check",
     "db:up": "drizzle-kit up",
-    "test": "export PLAYWRIGHT=True && pnpm exec playwright test"
+    "test": "export PLAYWRIGHT=True && pnpm exec playwright test",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^2.0.17",
@@ -81,6 +82,7 @@
     "shiki": "^3.17.1",
     "sonner": "^2.0.7",
     "streamdown": "^1.6.9",
+    "svix": "^1.82.0",
     "swr": "^2.3.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
@@ -106,7 +108,8 @@
     "tailwindcss": "^4.1.17",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "ultracite": "6.3.8"
+    "ultracite": "6.3.8",
+    "vitest": "^4.0.15"
   },
   "packageManager": "pnpm@9.12.3"
 }
