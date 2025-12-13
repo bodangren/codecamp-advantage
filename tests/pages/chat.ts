@@ -142,30 +142,29 @@ export class ChatPage {
     const lastMessageElement = messageElements.at(-1);
 
     if (!lastMessageElement) {
-      return null;
+      throw new Error("No assistant message found");
     }
 
     const content = await lastMessageElement
       .getByTestId("message-content")
-      .innerText()
-      .catch(() => null);
+      .innerText();
 
-    const reasoningElement = await lastMessageElement
-      .getByTestId("message-reasoning")
-      .isVisible()
-      .then(async (visible) =>
-        visible
-          ? await lastMessageElement
-              .getByTestId("message-reasoning")
-              .innerText()
-          : null
-      )
-      .catch(() => null);
+    let reasoning: string | null = null;
+    try {
+      const reasoningLocator = lastMessageElement.getByTestId(
+        "message-reasoning"
+      );
+      if (await reasoningLocator.isVisible()) {
+        reasoning = await reasoningLocator.innerText();
+      }
+    } catch {
+      reasoning = null;
+    }
 
     return {
       element: lastMessageElement,
       content,
-      reasoning: reasoningElement,
+      reasoning,
       async toggleReasoningVisibility() {
         await lastMessageElement
           .getByTestId("message-reasoning-toggle")
