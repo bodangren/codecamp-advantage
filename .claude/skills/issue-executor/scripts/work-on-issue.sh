@@ -53,7 +53,7 @@ COMMENTS=$(echo "$COMMENTS_JSON" | jq -r '.comments[] | "### Comment from @\(.au
 echo "------------------------- IMPLEMENTATION PLAN -------------------------------"
 case "$ISSUE_NUMBER" in
     3)
-cat <<EOF
+cat <<'EOF'
 Issue #3 - Sprint 1: Project Cleanup & Dependency Update
 1. Remove NextAuth + guest auth code: delete legacy routes/config, login/register pages, and related helpers.
 2. Keep a benign auth() stub so server components can render until Clerk lands.
@@ -65,7 +65,7 @@ Issue #3 - Sprint 1: Project Cleanup & Dependency Update
 EOF
         ;;
     4)
-cat <<EOF
+cat <<'EOF'
 Issue #4 - Sprint 1: Drizzle & Postgres Setup
 1. Ensure Neon DATABASE_URL is provisioned; add placeholder to .env.example (with sslmode=require).
 2. Update drizzle.config.ts and runtime DB utils to read DATABASE_URL consistently.
@@ -77,7 +77,7 @@ Issue #4 - Sprint 1: Drizzle & Postgres Setup
 EOF
         ;;
     5)
-cat <<EOF
+cat <<'EOF'
 Issue #5 - Sprint 1: Clerk Integration (Frontend)
 1. Install @clerk/nextjs and add env placeholders (publishable key, secret, webhook secret, sign-in/up URLs).
 2. Wrap app/layout.tsx with <ClerkProvider> while preserving theme hydration.
@@ -89,7 +89,7 @@ Issue #5 - Sprint 1: Clerk Integration (Frontend)
 EOF
         ;;
     6)
-cat <<EOF
+cat <<'EOF'
 Issue #6 - Sprint 1: Clerk Webhook & Data Sync
 1. Add app/api/webhooks/clerk/route.ts (Node runtime) and install svix dependency.
 2. Read raw request body, verify svix-id/timestamp/signature headers using CLERK_WEBHOOK_SECRET, reject invalid signatures.
@@ -101,7 +101,7 @@ Issue #6 - Sprint 1: Clerk Webhook & Data Sync
 EOF
         ;;
     7)
-cat <<EOF
+cat <<'EOF'
 Issue #7 - Sprint 1: Base UI Shell
 1. Implement an authenticated layout composing sidebar + navbar; ensure auth routes do not inherit the shell.
 2. Sidebar: collapsible on desktop, sheet/drawer on mobile with focus trapping, Escape handling, and persisted state.
