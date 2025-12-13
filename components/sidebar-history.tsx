@@ -3,10 +3,14 @@
 import { isToday, isYesterday, subMonths, subWeeks } from "date-fns";
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
-import type { User } from "next-auth";
 import { useState } from "react";
 import { toast } from "sonner";
 import useSWRInfinite from "swr/infinite";
+
+// Placeholder for User type
+type User = {
+  email?: string | null;
+};
 import {
   AlertDialog,
   AlertDialogAction,

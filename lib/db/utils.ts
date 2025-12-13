@@ -1,9 +1,9 @@
 import { generateId } from "ai";
-import { genSaltSync, hashSync } from "bcrypt-ts";
+import crypto from "crypto";
 
 export function generateHashedPassword(password: string) {
-  const salt = genSaltSync(10);
-  const hash = hashSync(password, salt);
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
 
   return hash;
 }

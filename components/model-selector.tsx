@@ -1,8 +1,14 @@
 "use client";
 
-import type { Session } from "next-auth";
 import { startTransition, useMemo, useOptimistic, useState } from "react";
 import { saveChatModelAsCookie } from "@/app/(chat)/actions";
+
+// Placeholder for Session
+type Session = {
+  user: {
+    type: any; // was UserType
+  };
+};
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -28,7 +34,7 @@ export function ModelSelector({
     useOptimistic(selectedModelId);
 
   const userType = session.user.type;
-  const { availableChatModelIds } = entitlementsByUserType[userType];
+  const { availableChatModelIds } = entitlementsByUserType[userType as keyof typeof entitlementsByUserType];
 
   const availableChatModels = chatModels.filter((chatModel) =>
     availableChatModelIds.includes(chatModel.id)

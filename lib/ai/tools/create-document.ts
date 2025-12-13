@@ -1,6 +1,12 @@
 import { tool, type UIMessageStreamWriter } from "ai";
-import type { Session } from "next-auth";
 import { z } from "zod";
+
+// Placeholder type
+type Session = {
+  user?: {
+    id?: string;
+  } | null;
+};
 import {
   artifactKinds,
   documentHandlersByArtifactKind,
